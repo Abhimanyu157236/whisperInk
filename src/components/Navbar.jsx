@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import search from "../assets/[CITYPNG.COM]White Search Icon Button PNG IMG - 700x700.png";
 import hamburgur from "../assets/c00745132bda24213fb200f74a405990.png";
 import cross from "../assets/cross-white-icon.png";
 import { blogPosts } from "../blogData";
-import { className } from "../classname";
-import BlogCard from "./BlogCard";
 
 const Navbar = ({ expandMenu, setExpandMenu }) => {
   const [input, setInput] = useState("");

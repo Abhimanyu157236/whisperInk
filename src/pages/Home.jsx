@@ -108,7 +108,7 @@ const Home = ({ expandMenu, setExpandMenu }) => {
     
         <div
           className={`
-          absolute top-20 right-0 h-[100%] bg-violet-500 text-white overflow-hidden
+          absolute top-20 right-0 h-[100%] bg-gradient-to-r from-[#212d49]  to-[#334155] text-white overflow-hidden
           transition-all duration-500 ease-in-out
           ${expandMenu ? "w-[48%] translate-x-0 " : "w-0 translate-x-full"}
         `}
@@ -119,9 +119,9 @@ const Home = ({ expandMenu, setExpandMenu }) => {
               placeholder="Blog..."
               className="w-[80%] py-3 px-2 rounded-xl outline-none bg-orange-300 mr-3"
               value={input}
-              onChange={(e)=>setInput(e.target.value)}
+              onChange={(e)=>setInput(e.target.value.toLocaleLowerCase())}
             />
-           <div className={`${searchedBlog.length > 0 ? "block" : "hidden"}`} >
+           <div className={`${searchedBlog.length > 0 ? "block" : "hidden"} w-[80%]`} >
                    {
                         searchedBlog.length > 0 ? searchedBlog.map((blog)=>(
                             <div className="hover:bg-gray-500  bg-gray-400 p-4 text-white text-sm " key={blog.id}>

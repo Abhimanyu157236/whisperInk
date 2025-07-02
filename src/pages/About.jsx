@@ -1,8 +1,11 @@
-import React , {useEffect}from 'react';
-import search from "../assets/[CITYPNG.COM]White Search Icon Button PNG IMG - 700x700.png";
+import React , {useEffect, useState}from 'react';
 import { NavLink } from "react-router-dom";
+import { blogPosts } from '../blogData';
 
 const About = ({expandMenu , setExpandMenu}) => {
+  const [input, setInput] = useState("");
+    const  searchedBlog = blogPosts.filter(item =>input && (item.title.toLocaleLowerCase().includes(input)))
+
    useEffect(() => {
         setExpandMenu(false)
       
@@ -35,45 +38,55 @@ If you'd like to contribute, collaborate, or give feedback, feel free to contact
     
       </div>
 
-       <div
-        className={`
-          fixed top-20 right-0 h-full bg-gradient-to-r from-[#212d49]  to-[#334155] text-white overflow-hidden
+        <div
+          className={`
+          absolute top-20 right-0 h-[100%] bg-gradient-to-r from-[#212d49]  to-[#334155] text-white overflow-hidden
           transition-all duration-500 ease-in-out
-          ${expandMenu ? "w-[48%] translate-x-0" : "w-0 translate-x-full"}
+          ${expandMenu ? "w-[48%] translate-x-0 " : "w-0 translate-x-full"}
         `}
-      >
-        <div className=" w-[100%] flex py-3 ml-3 pl-1">
-          <input
-            type="text"
-            placeholder="Blog..."
-            className="w-24 py-3 px-2 rounded-xl outline-none bg-orange-300 mr-3"
-          />
-          <button>
-            <img
-              src={search}
-              alt="search"
-              className="w-10 p-2 bg-orange-300 outline-none rounded-full"
+        >
+          <div className=" w-[100%] py-3 ml-3 pl-1">
+            <input
+              type="text"
+              placeholder="Blog..."
+              className="w-[80%] py-3 px-2 rounded-xl outline-none bg-orange-300 mr-3"
+              value={input}
+              onChange={(e)=>setInput(e.target.value.toLocaleLowerCase())}
             />
-          </button>
+           <div className={`${searchedBlog.length > 0 ? "block" : "hidden"} w-[80%]`} >
+                   {
+                        searchedBlog.length > 0 ? searchedBlog.map((blog)=>(
+                            <div className="hover:bg-gray-500  bg-gray-400 p-4 text-white text-sm " key={blog.id}>
+                               <NavLink to="/blogs"
+                                                  state={{id:blog.id}}
+                                                  > 
+                                                     <h1>{blog.title}</h1>
+                                                  </NavLink>
+                            </div>
+               )) 
+               : ""
+                   } 
+                 </div>
+          </div>
+          <div className="w-full pl-7 ">
+            <NavLink to="/">
+              <h1 className="font-serif font-semibold text-xl text-white my-3">
+                Home
+              </h1>
+            </NavLink>
+            <NavLink to="/contact">
+              <h1 className="font-serif text-xl font-semibold text-white my-3">
+                Contact
+              </h1>
+            </NavLink>
+            <NavLink to="/about">
+              <h1 className="font-serif text-xl font-semibold text-white my-3">
+                About
+              </h1>
+            </NavLink>
+          </div>
         </div>
-        <div className="w-full pl-7 ">
-          <NavLink to="/">
-            <h1 className="font-serif font-semibold text-xl text-white my-3">
-              Home
-            </h1>
-          </NavLink>
-          <NavLink to="/contact">
-            <h1 className="font-serif text-xl font-semibold text-white my-3">
-              Contact
-            </h1>
-          </NavLink>
-          <NavLink to="/about">
-            <h1 className="font-serif text-xl font-semibold text-white my-3">
-              About
-            </h1>
-          </NavLink>
-        </div>
-      </div>
+     
       </>
   );
 }
